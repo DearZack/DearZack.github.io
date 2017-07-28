@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      如何使用Gson的排除策略？ | 扎克非伯格 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Zack">
+    
+    
+
+    <meta name="description" content="Gson是google解析Json的一个开源框架,同类的框架fastJson,JackJson等等，它的吊我就不赘述了。
+假设我们现在有这么一个使用场景:有一个实体类，但并不是每个字段都想序列化到json中。123456789public class User &amp;#123;    private String name;    private int age;    private double">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何使用Gson的排除策略？ | 扎克非伯格">
+<meta property="og:url" content="http://yoursite.com/2016/11/29/如何使用Gson的排除策略？/index.html">
+<meta property="og:site_name" content="扎克非伯格">
+<meta property="og:description" content="Gson是google解析Json的一个开源框架,同类的框架fastJson,JackJson等等，它的吊我就不赘述了。
+假设我们现在有这么一个使用场景:有一个实体类，但并不是每个字段都想序列化到json中。123456789public class User &amp;#123;    private String name;    private int age;    private double">
+<meta property="og:updated_time" content="2016-11-29T13:42:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何使用Gson的排除策略？ | 扎克非伯格">
+<meta name="twitter:description" content="Gson是google解析Json的一个开源框架,同类的框架fastJson,JackJson等等，它的吊我就不赘述了。
+假设我们现在有这么一个使用场景:有一个实体类，但并不是每个字段都想序列化到json中。123456789public class User &amp;#123;    private String name;    private int age;    private double">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">扎克非伯格</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+        <p class="panel-cover__description">
+          You dream don&#39;t work unless you do.
+        </p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary" />
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">归档</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+<nav class="cover-navigation navigation--social">
+  <ul class="navigation">
+
+    
+      <!-- Github -->
+      <li class="navigation__item">
+        <a href="https://github.com/DearZack" title="Huno on GitHub">
+          <i class='icon icon-social-github'></i>
+          <span class="label">GitHub</span>
+        </a>
+      </li>
+    
+
+    <!-- China social icon -->
+    <!--
+    
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-douban'></i>
+          <span class="label">Douban</span>
+        </a>
+      </li>
+
+      <li class="navigation__item">
+        <a href="" title="">
+          <i class='icon cs-icon-weibo'></i>
+          <span class="label">Weibo</span>
+        </a>
+      </li>
+
+    -->
+
+
+
+  </ul>
+</nav>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">如何使用Gson的排除策略？</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-11-29" class="post-meta__date date">2016-11-29</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/Gson/">Gson</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>Gson是google解析Json的一个开源框架,同类的框架fastJson,JackJson等等，它的吊我就不赘述了。</p>
+<p>假设我们现在有这么一个使用场景:有一个实体类，但并不是每个字段都想序列化到json中。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> high;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> weight;</div><div class="line">    <span class="keyword">private</span> String father;</div><div class="line">    </div><div class="line">    ...省略getter和setter</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="Expose注解"><a href="#Expose注解" class="headerlink" title="@Expose注解"></a>@Expose注解</h3><p>有人会说很简单啊，只要把想序列化的字段前加上@Expose注解，这个是Gson自带的，用起来确实很方便。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Gson gson = new GsonBuilder()</div><div class="line">            .excludeFieldsWithoutExposeAnnotation()//只序列化和反序列化带Expose注解属性</div><div class="line">            .create();</div></pre></td></tr></table></figure></p>
+<p>然后按照以上方法构建出Gson实例，然后哔哩哔哩就完成了。excludeFieldsWithoutExposeAnnotation()一定要加上这个，不然不会生效。</p>
+<p>当业务场景比较简单，以上方法确实简单、方便。但是当业务复杂起来，一个实体类里包含几十个字段也不是不可能，然后自由一个字段不想序列化的，这下真是日了狗了。@Expose复制粘贴几十遍，这样的代码显然是不优雅的，再极端一点，如果在上百上千个字段中排除一个，你肯定想砸键盘了。fastJson中有@JsonIgnore注解，可以方便的只排除一个，但是Gson里并没有类似的注解。<br>讲了这么多我们的主角该登场了。</p>
+<h3 id="Exclus注解"><a href="#Exclus注解" class="headerlink" title="@Exclus注解"></a>@Exclus注解</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@Retention(RetentionPolicy.RUNTIME)</div><div class="line">@Target(&#123;ElementType.FIELD&#125;)</div><div class="line">public @interface Exclus &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们先自定义一个注解Exclus，然后在想要排除的字段中加上，如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> high;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> weight;</div><div class="line">    <span class="meta">@Exclus</span></div><div class="line">    <span class="keyword">private</span> String father;</div><div class="line">    </div><div class="line">    ...省略getter和setter</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Gson本身是有提供ExclusionStrategy接口，就是让我们来自定义排除策略的，那我们就来实现它。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyExclusionStrategy</span> <span class="keyword">implements</span> <span class="title">ExclusionStrategy</span> </span>&#123;</div><div class="line">    <span class="comment">//需要跳过的字段</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">shouldSkipField</span><span class="params">(FieldAttributes f)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> f.getAnnotation(Exclus.class) != <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">//如果需要跳过，也可以自定义</span></div><div class="line">    <span class="comment">//@Target(&#123;ElementType.FIELD&#125;)改为@Target(&#123;ElementType.TYPE&#125;)其他都类似的</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">shouldSkipClass</span><span class="params">(Class&lt;?&gt; clazz)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>然后再把这家伙set到我们的Gson中，我们就可以发车了。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Gson gson = <span class="keyword">new</span> GsonBuilder()</div><div class="line">                .setExclusionStrategies(<span class="keyword">new</span> MyExclusionStrategy())</div><div class="line">                .create();</div></pre></td></tr></table></figure></p>
+<p>PS:其实给字段加上transient关键字也可以实现，但是我实际业务中是在本地序列化的时候是希望序列化这个字段的，在网络上传输时又是不希望的，所以只能用上面的方法。</p>
+
+  </section>
+
+  
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/11/29/如何使用Gson的排除策略？/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"Zack"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
