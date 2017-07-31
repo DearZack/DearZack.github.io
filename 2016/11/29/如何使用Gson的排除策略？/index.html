@@ -16,19 +16,16 @@
     
     
 
-    <meta name="description" content="Gson是google解析Json的一个开源框架,同类的框架fastJson,JackJson等等，它的吊我就不赘述了。
-假设我们现在有这么一个使用场景:有一个实体类，但并不是每个字段都想序列化到json中。123456789public class User &amp;#123;    private String name;    private int age;    private double">
+    <meta name="description" content="Gson是google解析Json的一个开源框架,同类的框架fastJson,JackJson等等，它的吊我就不赘述了。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何使用Gson的排除策略？ | 扎克非伯格">
 <meta property="og:url" content="http://yoursite.com/2016/11/29/如何使用Gson的排除策略？/index.html">
 <meta property="og:site_name" content="扎克非伯格">
-<meta property="og:description" content="Gson是google解析Json的一个开源框架,同类的框架fastJson,JackJson等等，它的吊我就不赘述了。
-假设我们现在有这么一个使用场景:有一个实体类，但并不是每个字段都想序列化到json中。123456789public class User &amp;#123;    private String name;    private int age;    private double">
-<meta property="og:updated_time" content="2016-11-29T13:42:31.000Z">
+<meta property="og:description" content="Gson是google解析Json的一个开源框架,同类的框架fastJson,JackJson等等，它的吊我就不赘述了。">
+<meta property="og:updated_time" content="2017-07-31T12:19:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何使用Gson的排除策略？ | 扎克非伯格">
-<meta name="twitter:description" content="Gson是google解析Json的一个开源框架,同类的框架fastJson,JackJson等等，它的吊我就不赘述了。
-假设我们现在有这么一个使用场景:有一个实体类，但并不是每个字段都想序列化到json中。123456789public class User &amp;#123;    private String name;    private int age;    private double">
+<meta name="twitter:description" content="Gson是google解析Json的一个开源框架,同类的框架fastJson,JackJson等等，它的吊我就不赘述了。">
     
     
     
@@ -223,6 +220,7 @@ classes that you can use:
 
   <section id="post-content" class="article-content post">
     <p>Gson是google解析Json的一个开源框架,同类的框架fastJson,JackJson等等，它的吊我就不赘述了。</p>
+<a id="more"></a>
 <p>假设我们现在有这么一个使用场景:有一个实体类，但并不是每个字段都想序列化到json中。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> high;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">double</span> weight;</div><div class="line">    <span class="keyword">private</span> String father;</div><div class="line">    </div><div class="line">    ...省略getter和setter</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h3 id="Expose注解"><a href="#Expose注解" class="headerlink" title="@Expose注解"></a>@Expose注解</h3><p>有人会说很简单啊，只要把想序列化的字段前加上@Expose注解，这个是Gson自带的，用起来确实很方便。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Gson gson = new GsonBuilder()</div><div class="line">            .excludeFieldsWithoutExposeAnnotation()//只序列化和反序列化带Expose注解属性</div><div class="line">            .create();</div></pre></td></tr></table></figure></p>
 <p>然后按照以上方法构建出Gson实例，然后哔哩哔哩就完成了。excludeFieldsWithoutExposeAnnotation()一定要加上这个，不然不会生效。</p>
